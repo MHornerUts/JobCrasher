@@ -8,24 +8,18 @@ public class UITEST {
     JPanel panel = new JPanel();
 
     public UITEST() {
-        
-        
-        //JTextField field = new JTextField(10);
         JButton bt1 = new JButton("Add");
 
 
-        //Adds the checkboxes if they exist
 
         addSkills(this.panel);
         
 
 
-        //panel.add(field);
         panel.add(bt1);
 
         bt1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                 //UICreate ui = new UICreate();
                  menuTwo();    
             }
         });
