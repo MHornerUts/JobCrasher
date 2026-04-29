@@ -1,4 +1,4 @@
-Basic fill in app for different cover letters. In effect I've found writing cover letters to be the process of finding which specific facits of my degree, and experiences to mention, so I threw something together so that I could just check a box.
+Basic fill in app for different cover letters. In effect I've found writing cover letters to be the process of finding which specific facits of my degree, and experiences to mention, so I threw something together so that I could just check a box. Currently not very good.
 
 
 
