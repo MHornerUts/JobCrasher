@@ -5,5 +5,6 @@ Basic fill in app for different cover letters. In effect I've found writing cove
 This program uses GSON for interacting with json files which falls under the apache 2.0 license.
 https://www.apache.org/licenses/LICENSE-2.0
 
+Also I've included the license in a seperate doc.
 
 Hopefully this is enough to stop me from being sued.
