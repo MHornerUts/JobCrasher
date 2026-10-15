@@ -1,13 +1,21 @@
 package laboom;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class UITEST {
     JFrame frame = new JFrame();
     JPanel panel = new JPanel();
+    JPanel checkPanel = new JPanel();
+    JPanel textPanel = new JPanel();
+    JTextArea basic = new JTextArea();
 
     public UITEST() {
+     
         JButton bt1 = new JButton("Add");
 
 
@@ -16,7 +24,7 @@ public class UITEST {
         
 
 
-        panel.add(bt1);
+        checkPanel.add(bt1);
 
         bt1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
@@ -24,11 +32,12 @@ public class UITEST {
             }
         });
 
-
-       
-        
         
         frame.add(panel);
+
+        textPanel.add(basic);
+        basic.setLineWrap(true);
+        basic.setWrapStyleWord(true);
 
         frame.pack();
         frame.setVisible(true);
@@ -36,16 +45,68 @@ public class UITEST {
         
     }
 
+    public void updateExample(ArrayList<Skill> selected) {
+        SkillsorterList sorter = new SkillsorterList();
+        sorter.bubblesort(selected);
+
+        basic.setText("");
+        for (Skill skill : selected) {
+            basic.append(skill.desc);
+            basic.append("\n\n");      
+        } 
+        frame.pack();
+        
+    }
+
+    public void addExample(Skill skill, ArrayList<Skill> selected) {
+        selected.add(skill);
+        updateExample(selected);
+    }
+
+    public void removeExample(Skill skill, ArrayList<Skill> selected) {
+        for (int i = 0 ; i < selected.size(); i++) {
+                if (skill.name.equals(selected.get(i).name)) {
+                    selected.remove(i);
+                    break;
+                }
+        }
+        updateExample(selected);
+    }
+
     public void addSkills(JPanel panel) {
         SkillReader read = new SkillReader();
         Skill[] skills = read.readSkills(); 
+        panel.setLayout(new GridLayout(0, 1));
+        textPanel.setLayout(new GridLayout(0, 1));
+        JLabel l1 = new JLabel("Example:");
+        textPanel.add(l1);
+        JScrollPane scroll = new JScrollPane(textPanel);
+        ArrayList<Skill> selected = new ArrayList<Skill>();
+        //scroll.setVerticalScrollBarPolicy(100);
+        
         if (skills != null) {
             JButton bt2 = new JButton("Create");
             JCheckBox[] checks = new JCheckBox[skills.length];
-            
+                   
             for (int i = 0; i < skills.length; i++) {
                 checks[i] = new JCheckBox(skills[i].name);
-                panel.add(checks[i]);
+                JCheckBox current = checks[i];
+                Skill temp = skills[i];
+                current.addActionListener(new ActionListener() {
+                    Skill y = temp;
+//Adds text to example area in prog
+                    public void actionPerformed(ActionEvent ae) {
+                        
+                        if (current.isSelected()) {     
+                            addExample(y, selected);
+                            
+                        } else {
+                            removeExample(y, selected);
+                            
+                        }
+                    }
+                });
+                checkPanel.add(checks[i]);
 
             } 
         
@@ -76,7 +137,10 @@ public class UITEST {
                 }
             });
 
-            panel.add(bt2);
+            //scroll.add(textPanel);
+            checkPanel.add(bt2);
+            panel.add(checkPanel);
+            panel.add(scroll);
         }     
     }
 
